@@ -15,6 +15,11 @@ h1 {
     margin-right: 3%;
 }
 
+.schedule>* {
+    margin-bottom: 16px;
+}
+
+
 .button {
     height: 50px;
     width: 200px;

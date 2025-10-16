@@ -1,7 +1,11 @@
-document.getElementById("loadBtn").addEventListener("click", loadSchedule)
+document.getElementById("myDropdown").addEventListener("change", (event) => {
+    const value = event.target.value; // Get selected value
+    console.log(value);
+    loadSchedule(value);
+});
 
-function loadSchedule() {
-    fetch("MichaelSchedule.json")
+function loadSchedule(filename) {
+    fetch(filename)
         .then(response => response.json())
         .then(data => {
             const classSchedule = document.getElementById("classSchedule");
