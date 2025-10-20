@@ -1,15 +1,19 @@
+// Add an event listener to the dropdown to load a schedule when the selection changes
 document.getElementById("myDropdown").addEventListener("change", (event) => {
     const value = event.target.value;
     console.log(value);
     loadSchedule(value);
 });
 
+// Fetch the schedule JSON and render cards for each class
 async function loadSchedule(filename) {
     try {
-        const res = await fetch(filename)
-        const data = await res.json()
+        const res = await fetch(filename);
+        const data = await res.json();
         const classSchedule = document.getElementById("classSchedule");
         classSchedule.innerHTML = "";
+
+        // Create and append a card for each subject in the schedule
         data.forEach(subject => {
             const cardHTML = `
       <div class="col-12 col-md-6 col-lg-4">
@@ -24,7 +28,7 @@ async function loadSchedule(filename) {
       </div>
       </div>
     `;
-            classSchedule.insertAdjacentHTML('beforeend', cardHTML);
+            classSchedule.insertAdjacentHTML('beforeend', cardHTML); // append the card
         });
 
     } catch (err) {
