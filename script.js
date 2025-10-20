@@ -1,17 +1,17 @@
 document.getElementById("myDropdown").addEventListener("change", (event) => {
-    const value = event.target.value; // Get selected value
+    const value = event.target.value;
     console.log(value);
     loadSchedule(value);
 });
 
-function loadSchedule(filename) {
-    fetch(filename)
-        .then(response => response.json())
-        .then(data => {
-            const classSchedule = document.getElementById("classSchedule");
-            classSchedule.innerHTML = " ";
-            data.forEach(subject => {
-                const cardHTML = `
+async function loadSchedule(filename) {
+    try {
+        const res = await fetch(filename)
+        const data = await res.json()
+        const classSchedule = document.getElementById("classSchedule");
+        classSchedule.innerHTML = "";
+        data.forEach(subject => {
+            const cardHTML = `
       <div class="col-12 col-md-6 col-lg-4">
       <div class="card shadow-sm h-100">
         <div class="card-body">
@@ -24,9 +24,11 @@ function loadSchedule(filename) {
       </div>
       </div>
     `;
-                classSchedule.innerHTML += cardHTML;
-            });
-        })
+            classSchedule.insertAdjacentHTML('beforeend', cardHTML);
+        });
 
-
+    } catch (err) {
+        const status = document.getElementById("status");
+        status.innerHTML = `<div class="alert alert-danger">Error loading schedule. Please try again.</div>`;
+    }
 }
